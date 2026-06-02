@@ -121,18 +121,19 @@ Create a notebook from code:
 Use $annbook to explain this MultiHeadAttention implementation as an annotated notebook.
 ```
 
-Expected notebook structure:
+Expected notebook structure. The notebook title should be a first-level heading, and all other sections should be second-level headings:
 
-- 标题与学习目标
-- 研究背景与直觉
-- 模型框架
-- 模型组件
-- 数据集与任务定义
-- 损失函数定义
-- 模型训练过程
-- 最小可运行示例与结果解释
-- 小结
-- 参考资料与延伸阅读
+- `# 标题`
+- `## 学习目标`
+- `## 研究背景与直觉`
+- `## 模型框架`
+- `## 模型组件`
+- `## 数据集与任务定义`
+- `## 损失函数定义`
+- `## 模型训练过程`
+- `## 最小可运行示例与结果解释`
+- `## 小结`
+- `## 参考资料与延伸阅读`
 
 For computer vision notebooks, `annbook` should explain image tensors such as `(B, C, H, W)`, feature map size changes, patch/token shapes, attention maps, losses, metrics, and visualizations when relevant.
 

@@ -121,18 +121,19 @@ Use $annbook to create an annotated notebook from the Vision Transformer paper.
 Use $annbook to explain this MultiHeadAttention implementation as an annotated notebook.
 ```
 
-推荐 notebook 结构：
+推荐 notebook 结构。Notebook 标题使用一级标题，其他章节使用二级标题：
 
-- 标题与学习目标
-- 研究背景与直觉
-- 模型框架
-- 模型组件
-- 数据集与任务定义
-- 损失函数定义
-- 模型训练过程
-- 最小可运行示例与结果解释
-- 小结
-- 参考资料与延伸阅读
+- `# 标题`
+- `## 学习目标`
+- `## 研究背景与直觉`
+- `## 模型框架`
+- `## 模型组件`
+- `## 数据集与任务定义`
+- `## 损失函数定义`
+- `## 模型训练过程`
+- `## 最小可运行示例与结果解释`
+- `## 小结`
+- `## 参考资料与延伸阅读`
 
 对于计算机视觉 notebook，`annbook` 应解释图像张量 `(B, C, H, W)`、特征图尺寸变化、patch/token 形状、注意力矩阵、损失函数、评价指标和可视化含义。
 

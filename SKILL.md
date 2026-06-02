@@ -62,17 +62,18 @@ Workflow:
 2. Inspect `books/`, `codes/`, `papers/`, and `slides/` for relevant local material.
 3. Choose a notebook path under `books/`, using an existing book/topic folder if appropriate.
 4. Build the notebook with Markdown/code alternation rather than one long code block.
-5. Use this default notebook outline unless local style clearly differs:
-   - 标题与学习目标
-   - 研究背景与直觉
-   - 模型框架
-   - 模型组件
-   - 数据集与任务定义
-   - 损失函数定义
-   - 模型训练过程
-   - 最小可运行示例与结果解释
-   - 小结
-   - 参考资料与延伸阅读
+5. Use this default notebook outline unless local style clearly differs. The notebook title is a first-level heading; all other sections are second-level headings:
+   - `# 标题`
+   - `## 学习目标`
+   - `## 研究背景与直觉`
+   - `## 模型框架`
+   - `## 模型组件`
+   - `## 数据集与任务定义`
+   - `## 损失函数定义`
+   - `## 模型训练过程`
+   - `## 最小可运行示例与结果解释`
+   - `## 小结`
+   - `## 参考资料与延伸阅读`
 6. Include tensor shapes in prose and code comments where they clarify the data flow.
 7. Add a small runnable example or visualization. For visual explanation, state what to inspect before the figure and interpret what is visible after it.
 8. Update local book navigation if the project uses explicit `_toc.yml` or another manual index. If navigation is generated automatically by `book_generate.sh`, no TOC edit is needed.
