@@ -137,6 +137,13 @@ Expected notebook structure. The notebook title should be a first-level heading,
 
 For computer vision notebooks, `annbook` should explain image tensors such as `(B, C, H, W)`, feature map size changes, patch/token shapes, attention maps, losses, metrics, and visualizations when relevant.
 
+When the provided references, local source files, or search results clearly define the architecture, `annbook` can also add:
+
+- a tensor flow table listing each major module and the tensor shape after that module;
+- a concise Mermaid diagram for the data flow, model pipeline, training loop, or visualization pipeline.
+
+If the source is not explicit enough, these two additions can be omitted. The agent should not invent unsupported dimensions or architecture details.
+
 ### Generate the Book
 
 ```text
@@ -146,8 +153,10 @@ Use $annbook to run annbook book-generate.
 Typical command:
 
 ```bash
-./book_generate.sh ./books ./_build/books
+./book_generate.sh
 ```
+
+This uses the script defaults and is equivalent to `./book_generate.sh ./books ./_build/books directory`.
 
 The generated HTML is written to:
 
@@ -164,8 +173,10 @@ Use $annbook to run annbook book-start.
 Typical command:
 
 ```bash
-./book_start.sh ./books
+./book_start.sh
 ```
+
+This uses the script default `./books`.
 
 Default local URL:
 
@@ -191,7 +202,7 @@ This creates or repairs:
 .github/workflows/pages.yml
 ```
 
-The workflow runs on push to `main` and on manual dispatch. It installs Jupyter Book, runs `book_generate.sh`, uploads `_build/books`, and deploys through GitHub Pages.
+The workflow runs on push to `main` and on manual dispatch. It installs Jupyter Book, runs `./book_generate.sh` with its defaults, uploads `_build/books`, and deploys through GitHub Pages.
 
 ## Complete Example
 
@@ -246,6 +257,7 @@ Expected behavior:
 - Inspect `codes/`, `papers/`, `slides/`, and existing notebooks.
 - Create a notebook under `books/`.
 - Explain patch embedding, token sequence shape, positional encoding, attention matrix shape, MLP block, classifier head, loss, and a minimal runnable example.
+- Add a tensor flow table and Mermaid model-flow diagram when the referenced material is clear enough.
 - Include result interpretation and references.
 
 ### 4. Build the Book
@@ -290,6 +302,9 @@ GitHub Actions will build and deploy the book automatically when Pages is enable
 - Keep important English terms on first mention, for example `视觉 Transformer (Vision Transformer, ViT)`.
 - Use Markdown and code cells in a natural alternation.
 - Explain tensor shapes before and after important operations.
+- Add a tensor flow table when module-by-module dimensions are clear from the source.
+- Add a Mermaid diagram when the model or workflow is clear enough to draw.
+- Omit the tensor table or diagram when the source material is ambiguous; do not invent details.
 - Prefer small runnable examples over long training jobs.
 - Reuse implementations from `codes/` when available.
 - Explain what to inspect before a visualization and what the visualization shows after it.
@@ -306,4 +321,3 @@ Use this loop for long-term course maintenance:
 5. Run `annbook book-start` for visual inspection.
 6. Use `annbook book-pages` if Pages publishing needs repair.
 7. Commit and push after reviewing the changes.
-

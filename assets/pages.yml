@@ -34,7 +34,7 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Build book
-        run: ./book_generate.sh ./books ./_build/books
+        run: ./book_generate.sh
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -51,4 +51,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-

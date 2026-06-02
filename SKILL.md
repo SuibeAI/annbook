@@ -12,6 +12,8 @@ description: Create and maintain Annotated Jupyter Book course hubs. Use when th
 - Default to Chinese for teaching content; keep important English terms in parentheses on first use.
 - Prefer the annotated style: concept and motivation, tensor/formula explanation, readable implementation, minimal runnable example, result interpretation, summary, and references.
 - For notebooks, always explain input, output, and key intermediate tensor shapes. For computer vision content, use image tensors as `(B, C, H, W)` unless the local project uses another convention.
+- When supplied references, local source material, or search results clearly specify the model/module structure, add a tensor flow table that lists each major module and the tensor shape after that module. If the shapes are ambiguous or unsupported, omit the table or mark the uncertainty instead of inventing dimensions.
+- When the architecture or workflow is clear, add a concise Mermaid diagram for the data flow, model pipeline, training loop, or visualization pipeline. If the process is not clear enough, skip the diagram.
 - Before writing new model code in a notebook, inspect `codes/` and nearby notebooks. Reuse local implementations when possible, especially common modules such as attention, CNN blocks, training loops, and visualization utilities.
 - Keep scripts and infrastructure small and predictable. Avoid adding unrelated engineering scaffolding.
 - After changing notebooks, run a minimal validation when feasible: execute affected lightweight cells, or at least verify the notebook JSON and imported names. If training exists, use a small validation setting.
@@ -75,15 +77,18 @@ Workflow:
    - `## 小结`
    - `## 参考资料与延伸阅读`
 6. Include tensor shapes in prose and code comments where they clarify the data flow.
-7. Add a small runnable example or visualization. For visual explanation, state what to inspect before the figure and interpret what is visible after it.
-8. Update local book navigation if the project uses explicit `_toc.yml` or another manual index. If navigation is generated automatically by `book_generate.sh`, no TOC edit is needed.
-9. Validate the changed notebook minimally.
+7. If the source is clear enough, add a tensor flow table. Prefer columns such as `阶段/模块`, `输入形状`, `操作`, `输出形状`, and `说明`.
+8. If the model or workflow is clear enough, add a Mermaid flowchart. Keep node labels short and consistent with the notebook prose.
+9. Add a small runnable example or visualization. For visual explanation, state what to inspect before the figure and interpret what is visible after it.
+10. Update local book navigation if the project uses explicit `_toc.yml` or another manual index. If navigation is generated automatically by `book_generate.sh`, no TOC edit is needed.
+11. Validate the changed notebook minimally.
 
 Notebook writing constraints:
 
 - Do not turn the notebook into an API list or paper translation.
 - Do not assume the reader already understands the task, dataset, masks, losses, or visualizations.
 - Prefer small examples and transparent teaching code over unnecessary abstraction.
+- Do not fabricate tensor dimensions or architecture details. If references are insufficient, say that the tensor table or Mermaid diagram is omitted because the source is not explicit enough.
 - Use folded Markdown details for thinking questions with answers.
 
 ### `annbook book-generate`
@@ -93,13 +98,20 @@ Build the annotated book.
 Workflow:
 
 1. Confirm `book_generate.sh` exists.
-2. Run the local script, normally:
+2. Confirm `book_generate.sh` is executable. If not, run `chmod +x book_generate.sh`.
+3. Run the local script, normally:
 
 ```bash
-./book_generate.sh ./books ./_build/books
+./book_generate.sh
 ```
 
-3. If the project needs a different mode, pass it explicitly:
+This is equivalent to:
+
+```bash
+./book_generate.sh ./books ./_build/books directory
+```
+
+4. If the project needs a different mode or path, pass it explicitly:
 
 ```bash
 ./book_generate.sh ./books ./_build/books directory
@@ -107,7 +119,7 @@ Workflow:
 ./book_generate.sh ./books ./_build/books books
 ```
 
-4. Report the output directory and summarize any build errors with the failing file or cell when available.
+5. Report the output directory and summarize any build errors with the failing file or cell when available.
 
 ### `annbook book-start`
 
@@ -116,14 +128,17 @@ Preview the annotated book locally.
 Workflow:
 
 1. Confirm `book_start.sh` exists.
-2. Start the local service:
+2. Confirm `book_start.sh` is executable. If not, run `chmod +x book_start.sh`.
+3. Start the local service:
 
 ```bash
-./book_start.sh ./books
+./book_start.sh
 ```
 
-3. If port `8000` is occupied, use another port with `PORT=...`.
-4. Keep the server session running only when the user needs an active preview, and give the local URL.
+This is equivalent to `./book_start.sh ./books`.
+
+4. If port `8000` is occupied, use another port with `PORT=...`.
+5. Keep the server session running only when the user needs an active preview, and give the local URL.
 
 ### `annbook book-pages`
 
@@ -135,7 +150,7 @@ Workflow:
 2. Create or update a workflow that:
    - runs on push to `main` and `workflow_dispatch`;
    - installs Jupyter Book;
-   - runs `./book_generate.sh ./books ./_build/books`;
+   - runs `./book_generate.sh`;
    - uploads `_build/books`;
    - deploys with `actions/deploy-pages`.
 3. Keep repository-specific branch names, Python versions, install steps, or build arguments if they already exist and are intentional.
@@ -146,4 +161,3 @@ Workflow:
 - `assets/book_generate.sh`: default annotated book build script.
 - `assets/book_start.sh`: default local preview script.
 - `assets/pages.yml`: default GitHub Pages workflow.
-

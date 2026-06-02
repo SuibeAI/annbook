@@ -137,6 +137,13 @@ Use $annbook to explain this MultiHeadAttention implementation as an annotated n
 
 对于计算机视觉 notebook，`annbook` 应解释图像张量 `(B, C, H, W)`、特征图尺寸变化、patch/token 形状、注意力矩阵、损失函数、评价指标和可视化含义。
 
+如果提供的参考资料、本地源码或搜索结果已经清楚说明了模型结构，`annbook` 也可以补充：
+
+- 张量流动表格：列出每个主要模块以及模块之后的张量维度；
+- Mermaid 流程图：说明数据流、模型 pipeline、训练流程或可视化流程。
+
+如果资料不够明确，这两项可以不生成。不要编造没有依据的张量维度或结构细节。
+
 ### 生成 Book
 
 ```text
@@ -146,8 +153,10 @@ Use $annbook to run annbook book-generate.
 典型命令：
 
 ```bash
-./book_generate.sh ./books ./_build/books
+./book_generate.sh
 ```
+
+该命令使用脚本缺省参数，等价于 `./book_generate.sh ./books ./_build/books directory`。
 
 生成的 HTML 输出目录：
 
@@ -164,8 +173,10 @@ Use $annbook to run annbook book-start.
 典型命令：
 
 ```bash
-./book_start.sh ./books
+./book_start.sh
 ```
+
+该命令使用脚本缺省目录 `./books`。
 
 默认本地地址：
 
@@ -191,7 +202,7 @@ Use $annbook to run annbook book-pages.
 .github/workflows/pages.yml
 ```
 
-workflow 会在 push 到 `main` 或手动触发时运行。它会安装 Jupyter Book，执行 `book_generate.sh`，上传 `_build/books`，并通过 GitHub Pages 发布。
+workflow 会在 push 到 `main` 或手动触发时运行。它会安装 Jupyter Book，使用缺省参数执行 `./book_generate.sh`，上传 `_build/books`，并通过 GitHub Pages 发布。
 
 ## 完整示例
 
@@ -246,6 +257,7 @@ Use $annbook to create an annotated notebook named AnnotatedVisionTransformer.ip
 - 检查 `codes/`、`papers/`、`slides/` 和已有 notebooks。
 - 在 `books/` 下创建 notebook。
 - 解释 patch embedding、token 序列形状、位置编码、注意力矩阵形状、MLP block、分类头、损失函数和最小可运行示例。
+- 在参考资料足够明确时，加入张量流动表格和 Mermaid 模型流程图。
 - 包含结果解释和参考资料。
 
 ### 4. 生成 Book
@@ -290,6 +302,9 @@ git push origin main
 - 重要英文术语首次出现时保留英文，例如 `视觉 Transformer (Vision Transformer, ViT)`。
 - Markdown 单元和代码单元自然交替。
 - 在关键操作前后说明张量形状。
+- 当模块级维度可以从资料中明确确定时，加入张量流动表格。
+- 当模型或流程足够清晰时，加入 Mermaid 流程图。
+- 如果资料存在歧义，可以省略张量表格或流程图，不要编造细节。
 - 优先使用小型可运行示例，不默认执行长时间训练。
 - 优先复用 `codes/` 中已有实现。
 - 可视化前说明要观察什么，可视化后解释观察结果。
@@ -306,4 +321,3 @@ git push origin main
 5. 运行 `annbook book-start` 做视觉检查。
 6. 如果 Pages 发布配置需要修复，运行 `annbook book-pages`。
 7. 检查改动后提交并推送。
-
