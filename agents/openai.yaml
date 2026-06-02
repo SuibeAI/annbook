@@ -1,0 +1,5 @@
+interface:
+  display_name: "Annotated Book"
+  short_description: "Build annotated Jupyter Book course hubs"
+  default_prompt: "Use $annbook to create a new annotated notebook from this topic."
+
